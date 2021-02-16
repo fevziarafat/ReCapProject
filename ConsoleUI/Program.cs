@@ -33,22 +33,48 @@ namespace ConsoleUI
            carManager.Add(new Car() { CarName = "Forester", ColorId = 1, BrandId = 3, DailyPrice = 1500, Description = "Subaru Forester", ModelYear = 1999 });
            carManager.Add(new Car() { CarName = "Laguna", ColorId = 3, BrandId = 10, DailyPrice = 1500, Description = "Renault Laguna", ModelYear = 1999 });
            var carlistBrand=carManager.GetCarsByBrandId(1);
-           foreach (var car in carlistBrand)
+           if (carlistBrand.Success)
            {
-               Console.WriteLine(car.CarName);
+               foreach (var car in carlistBrand.Data)
+               {
+                   Console.WriteLine(car.CarName);
+               }
+            }
+           else
+           {
+               Console.WriteLine(carlistBrand.Message);
            }
+           
 
            var allCar=carManager.GetAll();
-           foreach (var car in allCar)
+           if (allCar.Success)
            {
-               Console.WriteLine(car.CarName);
+               foreach (var car in allCar.Data)
+               {
+                   Console.WriteLine(car.CarName);
+               }
+            }
+           else
+           {
+               Console.WriteLine(allCar.Message);
            }
+          
 
            var carDetails=carManager.GetCarDetails();
-           foreach (var car in carDetails)
+           if (carDetails.Success)
            {
-               Console.WriteLine(car.BrandName+" --- "+  car.CarName + " --- " + car.ColorName + " --- " + car.DailyPrice);
+               foreach (var car in carDetails.Data)
+               {
+                   Console.WriteLine(car.BrandName + " --- " +
+                                     car.CarName + " --- " +
+                                     car.ColorName + " --- " + car.DailyPrice);
+               }
+            }
+           else
+           {
+               Console.WriteLine(carDetails.Message);
            }
+            
         }
 
         private static void BrandWork()
@@ -96,23 +122,23 @@ namespace ConsoleUI
         private static void CarList(CarManager carManager)
         {
             var carsbybrand = carManager.GetCarsByBrandId(1);
-            foreach (var car in carsbybrand)
+            foreach (var car in carsbybrand.Data)
             {
                 Console.WriteLine(car.CarName);
             }
 
             var carsbycolor = carManager.GetCarsByColorId(2);
-            foreach (var car in carsbycolor)
-            {
-                Console.WriteLine(car.CarName);
-            }
+            //foreach (var car in carsbycolor.Data)
+            //{
+            //    Console.WriteLine(car.CarName);
+            //}
         }
 
         private static CarManager ListCar()
         {
             CarManager carManager = new CarManager(new EfCarDal());
             var item = carManager.GetAll();
-            foreach (var car in item)
+            foreach (var car in item.Data)
             {
                 Console.WriteLine(car.Description);
             }
