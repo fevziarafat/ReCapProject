@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -26,7 +28,16 @@ namespace DataAccess.Concrete.InMemory
             return cars;
         }
 
-       
+
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            return cars;
+        }
 
         public void Add(Car car)
         {
@@ -47,6 +58,11 @@ namespace DataAccess.Concrete.InMemory
         {
             var deletedCar = cars.SingleOrDefault(p => p.Id == car.Id);
             cars.Remove(deletedCar);
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }
