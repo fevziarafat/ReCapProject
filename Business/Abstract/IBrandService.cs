@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using Core.Utilities.Results;
 using Entities.Concrete;
 
 namespace Business.Abstract
 {
     public interface IBrandService
     {
-        void Add(Brand brand);
-        void Delete(Brand brand);
-        void Update(Brand brand);
-        List<Brand> GetAll();
-        List<Brand> GetByLetterSize(Expression<Func<Brand,bool>>filter);
+        IResult Add(Brand brand);
+        IResult Delete(Brand brand);
+        IResult Update(Brand brand);
+        IDataResult<Brand> Get(Brand brand);
+        IDataResult<List<Brand>> GetAll();
+        IDataResult<List<Brand>> GetByLetterSize(int size);
 
     }
 }
