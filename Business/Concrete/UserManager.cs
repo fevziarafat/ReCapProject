@@ -42,6 +42,10 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetAll()
         {
+            //if (DateTime.Now.Hour==03)
+            //{
+            //    return new ErrorDataResult<List<User>>("Sistem bakımda");
+            //}
             return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
