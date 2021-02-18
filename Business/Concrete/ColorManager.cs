@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -15,11 +17,13 @@ namespace Business.Concrete
 
        public ColorManager(IColorDal colorDal)
        {
+          
            _colorDal = colorDal;
        }
 
        public IResult Add(Color color)
         {
+            ValidationTool.Validate(new ColorValidation(), color);
             _colorDal.Add(color);
             return new SuccessResult();
         }

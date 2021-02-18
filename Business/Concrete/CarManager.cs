@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -23,7 +26,11 @@ namespace Business.Concrete
 
 
        public IResult Add(Car car)
-        {
+       {
+           ValidationTool.Validate(new CarValidator(), car);
+           // var context = new ValidationContext<Car>(car);
+           //CarValidator carValidator = new CarValidator();
+           //var result = carValidator.Validate(context);
             if (car.CarName.Length>=2&&car.DailyPrice>0)
             {
                 _carDal.Add(car);
