@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -14,5 +13,7 @@ namespace Business.Abstract
         IDataResult<Rental> Get(Rental rental);
         IDataResult<List<Rental>> GetAll();
         IDataResult<List<Rental>> GetByLetterSize(int size);
+
+        IDataResult<List<RentalDetailsDto>> GetRentalDetails();
     }
 }

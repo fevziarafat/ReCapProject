@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
+using Business.CCS;
 using Business.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -16,6 +16,7 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+           
             builder.RegisterType<BrandManager>().As<IBrandService>().SingleInstance();
             builder.RegisterType<EfBrandDal>().As<IBrandDal>().SingleInstance();
             builder.RegisterType<CarManager>().As<ICarService>().SingleInstance();
@@ -28,6 +29,28 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
+
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
+            builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
+            builder.RegisterType<DbLogger>().As<ILogger>().SingleInstance();
+
+            builder.RegisterType<UserForJwtManager>().As<IUserForJwtService>().SingleInstance();
+            builder.RegisterType<EfUserForJwtDal>().As<IUserForJwtDal>().SingleInstance();
+
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
+            builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
+            builder.RegisterType<TokenOptions>().As<TokenOptions>().SingleInstance();
+            
+
+            //builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
+
+
+            //builder.RegisterType<DateTime>().As<DateTime>();
+            //builder.RegisterType<ReCapProjectContext>().AsSelf()
+            //    .As<IdentityDbContext<ApplicationUser>>().InstancePerApiRequest();
+            // builder.RegisterType<ConfigurationBinder>().As<IConfiguration>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

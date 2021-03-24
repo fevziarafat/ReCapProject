@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
-using System.Text;
 using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -62,6 +61,11 @@ namespace Business.Concrete
         public IDataResult<List<Rental>> GetByLetterSize(int size)
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(p=>p.Id==size));
+        }
+
+        public IDataResult<List<RentalDetailsDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailsDto>>(_rentalDal.GetRentalDetails().ToList());
         }
     }
 }

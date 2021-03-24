@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Castle.DynamicProxy;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Core.Utilities.Interceptors
 {
