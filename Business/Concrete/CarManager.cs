@@ -98,6 +98,20 @@ namespace Business.Concrete
                 .ToList());
         }
 
+        public IDataResult<List<CarListDto>> GetCarListWithBrandName(string brandName)
+        {
+            return new SuccessDataResult<List<CarListDto>>
+            (_carDal.GetCarList().Where(p => p.BrandName == brandName)
+                .ToList());
+        }
+
+        public IDataResult<List<CarListDto>> GetCarListWithColorName(string colorName)
+        {
+            return new SuccessDataResult<List<CarListDto>>
+            (_carDal.GetCarList().Where(p => p.ColorName == colorName)
+                .ToList());
+        }
+
         public IDataResult<List<CarListDto>> GetCarDetailsWithImage(int id)
         {
             return new SuccessDataResult<List<CarListDto>>

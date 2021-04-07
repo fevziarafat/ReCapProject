@@ -1,4 +1,7 @@
-﻿using Core.Entities;
+﻿using System;
+using System.Data.SqlTypes;
+using Core.Entities;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Entities.Concrete
 {
@@ -7,8 +10,8 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public int CarId { get; set; }
         public int CustomerId { get; set; }
-        public string RentDate { get; set; }
-        public string ReturnDate  { get; set; }
+        public DateTime? RentDate { get; set; }
+        public DateTime? ReturnDate  { get; set; }
 
 
     }
