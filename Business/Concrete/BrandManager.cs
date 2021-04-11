@@ -27,7 +27,8 @@ namespace Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
-            IResult businessResult = BusinessRules.Run(SameNameCheck(brand), BrandGetAllBusiness(), CarServiceBusiness());
+            string businessResult = null;
+            // IResult businessResult = BusinessRules.Run(SameNameCheck(brand), BrandGetAllBusiness(), CarServiceBusiness());
             if (businessResult == null)
             {
                 _brandDal.Add(brand);

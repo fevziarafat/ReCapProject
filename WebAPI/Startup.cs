@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Core.Extensions;
+using Catel.MVVM.Converters;
+
 
 namespace WebAPI
 {
@@ -28,7 +30,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-           // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin",
@@ -55,6 +57,10 @@ namespace WebAPI
             {
                 new CoreModule()
             });
+            //services.AddControllers()
+            //    .AddJsonOptions(options =>
+            //        options.JsonSerializerOptions.Converters.Add(new IntToStringConverter()));
+            services.AddControllers().AddNewtonsoftJson();
             //services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             //{
             //    builder.AllowAnyHeader()
@@ -82,7 +88,7 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.ConfigureCustomExceptionMiddleware();
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
             app.UseHttpsRedirection();
 
@@ -91,7 +97,7 @@ namespace WebAPI
             app.UseAuthorization();
             //eve girmek için anahtar
             app.UseAuthentication();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -117,5 +117,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarListDto>>
                 (_carDal.GetCarList().Where(p=>p.CarId==id).ToList());
         }
+
+        public IResult Update(Car car)
+        {
+            _carDal.Update(car);
+            return new SuccessResult();
+        }
+
+        public IResult Delete(Car car)
+        {
+            _carDal.Delete(car);
+            return new SuccessResult();
+        }
     }
 }
